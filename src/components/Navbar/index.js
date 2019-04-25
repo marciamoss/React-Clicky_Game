@@ -6,7 +6,7 @@ function Navbar(props) {
     <nav className="navdeco">
       <div className="row">
         <div className="col-4">
-          <a href="/#">Clicky Game</a>
+          <a href="/React-Clicky_Game/#">Clicky Game</a>
         </div>
         <div className="col-4">
           Click an image to begin
