@@ -19,6 +19,7 @@ class App extends Component {
     friends,
     counter:0,
     topScore:0,
+    currentScore:0,
     show: false,
     lost: false,
     won: false,
@@ -35,6 +36,7 @@ class App extends Component {
   guessedFriend = id => {
     const friendCopy = [...this.state.friends];
     let counterCopy=this.state.counter;
+    let currentScoreCopy=this.state.currentScore;
     let topScoreCopy=this.state.topScore;
     let showCopy=this.state.show;
     let lostCopy=this.state.lost;
@@ -48,6 +50,7 @@ class App extends Component {
           if(topScoreCopy<counterCopy){
             topScoreCopy=counterCopy;
           }
+          currentScoreCopy=counterCopy;
           counterCopy=0;
           showCopy=true;
           lostCopy=true;
@@ -77,6 +80,7 @@ class App extends Component {
     //set won msg for modal
     if(counterCopy===friendCopy.length){
       showCopy=true;
+      currentScoreCopy=counterCopy;
       counterCopy=0;
       msgCopy="You Won!, Play Again!";
     };
@@ -89,7 +93,7 @@ class App extends Component {
     };
     
     // Set this.state.friends equal to the new friends array
-    this.setState({ friends: friendCopy, counter: counterCopy, topScore: topScoreCopy, show: showCopy, msg: msgCopy, handleShow: handleShowCopy, handleClose: handleCloseCopy });
+    this.setState({ friends: friendCopy, counter: counterCopy, currentScore: currentScoreCopy, topScore: topScoreCopy, show: showCopy, msg: msgCopy, handleShow: handleShowCopy, handleClose: handleCloseCopy });
   };
 
   // Map over this.state.friends and render a FriendCard component for each friend object
@@ -97,7 +101,9 @@ class App extends Component {
     return (
       <Wrapper>
         <Navbar counter={this.state.counter} topScore={this.state.topScore}></Navbar>
-        <Message show={this.state.show} msg={this.state.msg} handleClose={this.state.handleClose}></Message>
+        <Message show={this.state.show} msg={this.state.msg} handleClose={this.state.handleClose} 
+                 currentScore={this.state.currentScore} topScore={this.state.topScore}>
+        </Message>
         <div className="container">
           <div className="row">
             {this.state.friends.map(friend => (
